@@ -3496,7 +3496,7 @@ const docTemplate = `{
                     ]
                 },
                 "attr": {
-                    "description": "Attr defines the overrided attribution\n+ui:form:when=action=='attrOverride'\n+optional",
+                    "description": "Attr defines the overridden attribution\n+ui:form:when=action=='attrOverride'\n+optional",
                     "allOf": [
                         {
                             "$ref": "#/definitions/github_com_chaos-mesh_chaos-mesh_api_v1alpha1.AttrOverrideSpec"
@@ -4258,6 +4258,17 @@ const docTemplate = `{
                 "BandwidthAction"
             ]
         },
+        "github_com_chaos-mesh_chaos-mesh_api_v1alpha1.NetworkChaosPartitionBehavior": {
+            "type": "string",
+            "enum": [
+                "drop",
+                "reject"
+            ],
+            "x-enum-varnames": [
+                "DropPartitionBehavior",
+                "RejectPartitionBehavior"
+            ]
+        },
         "github_com_chaos-mesh_chaos-mesh_api_v1alpha1.NetworkChaosSpec": {
             "type": "object",
             "properties": {
@@ -4337,6 +4348,14 @@ const docTemplate = `{
                     "allOf": [
                         {
                             "$ref": "#/definitions/github_com_chaos-mesh_chaos-mesh_api_v1alpha1.SelectorMode"
+                        }
+                    ]
+                },
+                "partitionBehavior": {
+                    "description": "PartitionBehavior defines how matched packets are handled for the partition\naction. \"drop\" silently discards packets, while \"reject\" resets TCP\nconnections and rejects remaining traffic with the platform-default response.\n+optional\n+kubebuilder:validation:Enum=drop;reject\n+kubebuilder:default=drop",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/github_com_chaos-mesh_chaos-mesh_api_v1alpha1.NetworkChaosPartitionBehavior"
                         }
                     ]
                 },
